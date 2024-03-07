@@ -14,7 +14,7 @@ module Oasis::Oasis{
             id:UID,
             owner:address,
             name:String,
-            arrayOfIds:vector<UID>
+            arrayOfIds:vector<ID>
         }
         //top level concept
         struct Data has key{
@@ -63,7 +63,7 @@ module Oasis::Oasis{
                 id:id,
                 owner:sender_address,
                 name:name,
-                arrayOfIds:vector::empty<UID>(),
+                arrayOfIds:vector::empty<ID>(),
             };
             ofield::add(&mut data.id,name,collection)
         }
@@ -93,10 +93,15 @@ module Oasis::Oasis{
                 owner:tx_context::sender(ctx)
                
             };
+           
             nftData2Tansfer(imageUrl,name,description,traitType,value,number,collectionName,senderaddress,ctx);
+             let id=object::id(&nft);
+            addToCollection(data,collectionName,id);
 
             ofield::add(&mut data.id,name,nft);
         }
+
+
         entry public fun nftData2Tansfer(
             imageUrl:String,
             name:String,
@@ -126,13 +131,25 @@ module Oasis::Oasis{
             transfer::transfer(nft,senderaddress);
         }
 
-        // entry public fun addToCollection(
-        //     data:&mut Data,
-        //     collectionName:String
-        // ):Collection{
-        //     let coll = ofield::borrow_mut<String,Collection>(&mut data.id,collectionName);
-        //     coll
-        // }
+
+        entry public fun addToCollection(
+            data: &mut Data,
+            collectionName: String,
+            id: ID,
+        ){
+            let coll = ofield::borrow_mut<String, Collection>(&mut data.id, collectionName);
+            let array = coll.arrayOfIds;
+            vector::push_back(&mut array, id);
+            coll.arrayOfIds = array; 
+        }
+
+
+        // entry public fun uid2id(
+        //     nft: &mut Nft
+        // ):ID{
+        //         let id = object::id(nft);
+        //         id
+        //     }
 
     // // this will add the nft to user who minted
         // entry public fun mint(
