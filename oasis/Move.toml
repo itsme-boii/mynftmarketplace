@@ -1,9 +1,0 @@
-[package]
-name = "dynamic_field_sample"
-version = "0.1.0"
-
-[dependencies]
-Sui = { git = "https://github.com/MystenLabs/sui.git", subdir="crates/sui-framework/packages/sui-framework/", rev = "ae1212baf8f0837e25926d941db3d26a61c1bea2" }
-
-[addresses]
-Oasis = "0x0"

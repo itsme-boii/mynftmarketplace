@@ -1,0 +1,22 @@
+[package]
+name = "Keepsake"
+version = "0.1.0"
+
+[dependencies.Sui]
+git = "https://github.com/MystenLabs/sui.git"
+subdir = "crates/sui-framework/packages/sui-framework"
+# devnet-0.16.0
+rev = "82c9c80c11488858f1d3930f47ec9f335a566683"
+
+
+[dependencies.NftProtocol]
+git = "https://github.com/Origin-Byte/nft-protocol.git"
+rev="47c70bc316292c05678d57f55ff3b3231572f7c4"
+
+[dependencies.MoveStdlib]
+git = "https://github.com/MystenLabs/sui.git"
+rev = "82c9c80c11488858f1d3930f47ec9f335a566683"  # Use the same revision as Sui
+subdir = "crates/sui-framework/packages/move-stdlib"
+
+[addresses]
+Oasis = "0x0"
