@@ -20,7 +20,7 @@
     use nft_protocol::limited_fixed_price;
 
     struct Oasis has store, drop {}
-    struct NFTCarrier has key { id: UID, witness: KEEPSAKE }
+    struct NFTCarrier has key { id: UID, witness: Oasis}
     struct Witness has drop {}
 
      fun init(ctx: &mut TxContext) {
@@ -51,7 +51,7 @@
             ctx,
         );
         let delegated_witness = witness::from_witness<Oasis, Witness>(&Witness {});
-        let collectionControlCap = transfer_allowlist::create_collection_cap<KEEPSAKE>(delegated_witness, ctx);
+        let collectionControlCap = transfer_allowlist::create_collection_cap<Oasis>(delegated_witness, ctx);
         transfer::public_transfer(collectionControlCap, tx_context::sender(ctx));
         
         display::add_collection_display_domain<Oasis, Oasis>(&Oasis {}, &mut collection, name, description);
